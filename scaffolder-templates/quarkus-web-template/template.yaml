@@ -93,7 +93,7 @@ spec:
           artifact_id: ${{ parameters.artifact_id }}
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
-          cluster: .apps.cluster-4bjxx.4bjxx.sandbox1207.opentlc.com
+          cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
           destination: ${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
           port: 8080
 
