@@ -91,13 +91,18 @@ spec:
       required:
         - repoUrl
       properties:
-        repoUrl:
+        repo:
           title: Repository Location
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
+          type: object
+          properties:
+            host:
+              title: Integration Provider Host
+              type: string
+              default: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+            owner:
+              title: Repo Owner
+              type: string
+              default: backstage
 
   steps:
     - id: template
@@ -110,14 +115,21 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
-          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          namespace: ${{ parameters.component_id }}-dev
+          group_id: ${{ parameters.group_id }}
+          artifact_id: ${{ parameters.artifact_id }}
+          java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
+          cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+          destination: ${{ repo.owner }}/${{ repo.name }}
+          port: 8080
+
 
     - id: publish
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: 'gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com?owner=backstage&repo=${{parameters.component_id}}'
+        repoUrl: ${{ repo.host }}?owner=${{ repo.owner }}?&repo=${{parameters.component_id}}'
 
     - id: register
       name: Register
