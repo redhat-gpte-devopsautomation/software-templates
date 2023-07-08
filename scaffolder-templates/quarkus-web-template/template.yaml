@@ -169,3 +169,21 @@ spec:
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
         repoVisibility: public
+        
+    - id: create-argocd-resources
+      name: Create ArgoCD Resources
+      action: argocd:create-resources
+      input:
+        appName: ${{ parameters.component_id }}-bootstrap
+        argoInstance: main
+        namespace: janus-argocd
+        repoUrl: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{ parameters.component_id }}-gitops.git
+        path: 'argocd/'
+
+  output:
+    links:
+      - title: Source Code Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open Component in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
