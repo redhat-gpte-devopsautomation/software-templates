@@ -89,21 +89,21 @@ spec:
                   description: Name of the Quay Organization
     - title: Application repository Information
       required:
-        - host
-        - owner
+        - repo
       properties:
         repo:
           title: Repository Location
           type: object
           properties:
             host:
-              title: Integration Provider Host
+              title: Repo Host
               type: string
               default: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
             owner:
               title: Repo Owner
               type: string
               default: backstage
+          
 
   steps:
     - id: template
