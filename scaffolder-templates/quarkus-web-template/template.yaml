@@ -122,7 +122,7 @@ spec:
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
           cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
-          destination: ${{ repo.owner }}/${{ repo.name }}
+          destination: ${{ parameters.repo.owner }}/${{ parameters.repo.name }}
           port: 8080
 
 
@@ -130,7 +130,7 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: ${{ repo.host }}?owner=${{ repo.owner }}&repo=${{parameters.component_id}}'
+        repoUrl: ${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}'
 
     - id: register
       name: Register
