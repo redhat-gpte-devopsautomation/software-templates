@@ -97,7 +97,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - gitlab.example.com
+              - github.com
 
   steps:
     - id: template
@@ -117,11 +117,7 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        allowedHosts:
-          - gitlab.example.com
-        description: This is ${{ parameters.component_id }}
-        repoUrl: ${{ parameters.repoUrl }}
-        title: Creating catalog-info.yaml ${{ parameters.name }} for backstage
+        repoUrl: 'gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/backstage/${{parameters.component_id}}'
 
     - id: register
       name: Register
