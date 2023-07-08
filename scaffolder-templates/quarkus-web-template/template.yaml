@@ -97,7 +97,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - google.com
+              - github.com
 
 
   steps:
