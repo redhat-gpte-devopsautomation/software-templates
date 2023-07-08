@@ -93,15 +93,17 @@ spec:
       properties:
         repoUrl:
           title: Repository Location
-          type: object
+          type: string
           properties:
+            host:
+              title: Repository Host
+              type: string
             name:
+              title: Repository Nmame
               type: string
-              default: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
             owner:
+              title: Repository Owner (Group or Organization)
               type: string
-              default: backstage
-
 
   steps:
     - id: template
@@ -120,7 +122,7 @@ spec:
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
           cluster: .apps.cluster-xxxxx.xxxxx.sandbox123.opentlc.com
-          destination: ${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          destination: ${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
           quay_destination: ${{ parameters.image_organization }}/${{ parameters.component_id }}
           port: 8080
 
@@ -129,7 +131,7 @@ spec:
       action: publish:gitlab
       input:
         description: This is ${{ parameters.component_id }}
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: ${{ parameters.repoUrl.host }}/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public
@@ -141,48 +143,48 @@ spec:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: '/catalog-info.yaml'
 
-    - id: template-gitops-deployment
-      name: Generating Deployment Resources
-      action: fetch:template
-      input:
-        url: ./manifests
-        copyWithoutTemplating: []
-        values:
-          component_id: ${{ parameters.component_id }}
-          description: ${{ parameters.description }}
-          destination: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops
-          source_repository: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
-          repository_name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
-          git_owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
-          cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
-          namespace: ${{ parameters.component_id }}-dev
-          image_registry: ${{ parameters.image_registry }}
-          image_host: ${{ parameters.image_host }}
-          image_organization: ${{ parameters.image_organization }}
-          image_name: ${{ parameters.component_id }}
-          port: 8080
-          deployment_name: quarkus-template
-        targetPath: ./tenant-gitops
+    # - id: template-gitops-deployment
+    #   name: Generating Deployment Resources
+    #   action: fetch:template
+    #   input:
+    #     url: ./manifests
+    #     copyWithoutTemplating: []
+    #     values:
+    #       component_id: ${{ parameters.component_id }}
+    #       description: ${{ parameters.description }}
+    #       destination: ${{ parameters.repoUrl.host }}/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}-gitops
+    #       source_repository: ${{ parameters.repoUrl.host }}/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
+    #       repository_name: ${{ parameters.repoUrl.name }}
+    #       git_owner: ${{ parameters.repoUrl.owner }}
+    #       cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+    #       namespace: ${{ parameters.component_id }}-dev
+    #       image_registry: ${{ parameters.image_registry }}
+    #       image_host: ${{ parameters.image_host }}
+    #       image_organization: ${{ parameters.image_organization }}
+    #       image_name: ${{ parameters.component_id }}
+    #       port: 8080
+    #       deployment_name: quarkus-template
+    #     targetPath: ./tenant-gitops
 
-    - id: publish-gitops
-      name: Publishing to Resource Repository
-      action: publish:github
-      input:
-        repoUrl: github.com?repo=${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops&owner=${{ (parameters.repoUrl | parseRepoUrl).owner }}
-        title: gitops resources for ${{ parameters.component_id }}
-        description: gitops resources for ${{ parameters.component_id }}
-        sourcePath: ./tenant-gitops
-        repoVisibility: public
+    # - id: publish-gitops
+    #   name: Publishing to Resource Repository
+    #   action: publish:gitlab
+    #   input:
+    #     repoUrl: github.com?repo=${{ parameters.repoUrl.name }}-gitops&owner=${{ (parameters.repoUrl | parseRepoUrl).owner }}
+    #     title: gitops resources for ${{ parameters.component_id }}
+    #     description: gitops resources for ${{ parameters.component_id }}
+    #     sourcePath: ./tenant-gitops
+    #     repoVisibility: public
 
-    - id: create-argocd-resources
-      name: Create ArgoCD Resources
-      action: argocd:create-resources
-      input:
-        appName: ${{ parameters.component_id }}-bootstrap
-        argoInstance: main
-        namespace: janus-argocd
-        repoUrl: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops.git
-        path: 'argocd/'
+    # - id: create-argocd-resources
+    #   name: Create ArgoCD Resources
+    #   action: argocd:create-resources
+    #   input:
+    #     appName: ${{ parameters.component_id }}-bootstrap
+    #     argoInstance: main
+    #     namespace: janus-argocd
+    #     repoUrl: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops.git
+    #     path: 'argocd/'
 
   output:
     links:
