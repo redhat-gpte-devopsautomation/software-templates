@@ -131,7 +131,7 @@ spec:
       action: publish:gitlab
       input:
         description: This is ${{ parameters.component_id }}
-        repoUrl: gitlab/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
+        repoUrl: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public
