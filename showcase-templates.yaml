@@ -12,6 +12,6 @@ spec:
 #    - https://github.com/janus-idp/software-templates/blob/main/scaffolder-templates/dotnet-frontend-template/template.yaml
 #    - https://github.com/janus-idp/software-templates/blob/main/scaffolder-templates/spring-boot-backend-template/template.yaml
 #    - https://github.com/janus-idp/software-templates/blob/main/scaffolder-templates/quarkus-backend-template/template.yaml
-     - https://github.com/janus-idp/software-templates/blob/main/scaffolder-templates/quarkus-web-template/template.yaml
+     - https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/backstage/software-templates/blob/main/scaffolder-templates/quarkus-web-template/template.yaml
 #    - https://github.com/janus-idp/software-templates/blob/main/scaffolder-templates/argocd-template/template.yaml
 #    - https://github.com/janus-idp/software-templates/blob/main/scaffolder-templates/ansible-job/template.yaml
