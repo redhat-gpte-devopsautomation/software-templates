@@ -122,7 +122,7 @@ spec:
 
     - id: publish
       name: Publishing to Source Code Repository
-      action: publish:github
+      action: publish:gitlab
       input:
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
@@ -146,11 +146,11 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
-          destination: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops
-          source_repository: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          destination: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops
+          source_repository: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
           repository_name: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
           git_owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
-          cluster: .apps.cluster-xxxxx.xxxxx.sandbox123.opentlc.com
+          cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
           namespace: ${{ parameters.component_id }}-dev
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
@@ -177,7 +177,7 @@ spec:
         appName: ${{ parameters.component_id }}-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops.git
+        repoUrl: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}-gitops.git
         path: 'argocd/'
 
   output:
