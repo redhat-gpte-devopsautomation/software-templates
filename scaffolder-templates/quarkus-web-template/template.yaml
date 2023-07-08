@@ -131,7 +131,7 @@ spec:
       action: publish:gitlab
       input:
         description: This is ${{ parameters.component_id }}
-        repoUrl: ${{ parameters.repoUrl.host }}/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
+        repoUrl: gitlab/${{ parameters.repoUrl.owner }}/${{ parameters.repoUrl.name }}
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public
