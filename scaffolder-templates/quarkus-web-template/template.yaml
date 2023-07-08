@@ -94,10 +94,7 @@ spec:
         repoUrl:
           title: Repository Location
           type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - "gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com"
+          default: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
 
   steps:
     - id: template
