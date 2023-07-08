@@ -122,7 +122,7 @@ spec:
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
           cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
-          destination: ${{ parameters.repo.owner }}/{{ parameters.component_id }}
+          destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
           port: 8080
 
 
@@ -131,7 +131,6 @@ spec:
       action: publish:gitlab
       input:
         repoUrl: '${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}'
-        #repoUrl: 'gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com?owner=backstage&repo=my-quarkus-app'
 
     - id: register
       name: Register
