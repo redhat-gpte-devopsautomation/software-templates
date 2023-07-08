@@ -89,7 +89,8 @@ spec:
                   description: Name of the Quay Organization
     - title: Application repository Information
       required:
-        - repo
+        - host
+        - owner
       properties:
         repo:
           title: Repository Location
