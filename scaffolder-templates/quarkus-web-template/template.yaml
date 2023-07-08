@@ -93,11 +93,14 @@ spec:
       properties:
         repoUrl:
           title: Repository Location
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
+          type: object
+          properties:
+            name:
+              type: string
+              default: https://gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+            owner:
+              type: string
+              default: backstage
 
 
   steps:
