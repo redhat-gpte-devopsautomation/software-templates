@@ -93,7 +93,7 @@ spec:
       properties:
         repoUrl:
           title: Repository Location
-          type: string
+          type: object
           properties:
             host:
               title: Repository Host
