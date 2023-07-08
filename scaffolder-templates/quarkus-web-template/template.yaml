@@ -130,8 +130,8 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        #repoUrl: ${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}'
-        repoUrl: 'gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com?owner=backstage&repo=my-quarkus-app'
+        repoUrl: '${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}'
+        #repoUrl: 'gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com?owner=backstage&repo=my-quarkus-app'
 
     - id: register
       name: Register
