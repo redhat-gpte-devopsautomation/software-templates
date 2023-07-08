@@ -122,7 +122,7 @@ spec:
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
           cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
-          destination: ${{ parameters.repo.owner }}/${{ parameters.repo.name }}
+          destination: ${{ parameters.repo.owner }}/{{ parameters.component_id }}
           port: 8080
 
 
