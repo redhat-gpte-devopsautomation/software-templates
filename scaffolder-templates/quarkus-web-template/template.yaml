@@ -98,12 +98,11 @@ spec:
             host:
               title: Repo Host
               type: string
-              default: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+              default: "{{ gitlab_host }}" #change
             owner:
               title: Repo Owner
               type: string
-              default: backstage
-          
+              default: "{{ gitlab_group }}" #change
 
   steps:
     - id: template
@@ -121,7 +120,7 @@ spec:
           artifact_id: ${{ parameters.artifact_id }}
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
-          cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+          cluster: "{{ cluster_subdomain }}" #change
           destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
           port: 8080
 
@@ -138,7 +137,7 @@ spec:
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: "/catalog-info.yaml"
-        
+
     - id: template-gitops-deployment
       name: Generating Deployment Resources
       action: fetch:template
@@ -152,7 +151,7 @@ spec:
           source_repository: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}.git
           repository_name: ${{parameters.component_id}}
           git_owner: ${{ parameters.component_id.owner }}
-          cluster: .apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+          cluster: "{{ cluster_subdomain }}" #change
           namespace: ${{ parameters.component_id }}-dev
           image_host: ${{ parameters.image_host }}
           image_name: ${{ parameters.component_id }}
@@ -169,7 +168,7 @@ spec:
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
         repoVisibility: public
-        
+
     - id: create-argocd-resources
       name: Create ArgoCD Resources
       action: argocd:create-resources
