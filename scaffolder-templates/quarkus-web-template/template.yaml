@@ -98,11 +98,11 @@ spec:
             host:
               title: Repo Host
               type: string
-              default: "{{ gitlab_host }}" #change
+              default: {{ gitlab_host }}
             owner:
               title: Repo Owner
               type: string
-              default: "{{ gitlab_group }}" #change
+              default: {{ gitlab_group }}
 
   steps:
     - id: template
@@ -120,7 +120,7 @@ spec:
           artifact_id: ${{ parameters.artifact_id }}
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ parameters.owner }}
-          cluster: "{{ cluster_subdomain }}" #change
+          cluster: {{ cluster_subdomain }}
           destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
           port: 8080
 
@@ -151,7 +151,7 @@ spec:
           source_repository: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}.git
           repository_name: ${{parameters.component_id}}
           git_owner: ${{ parameters.component_id.owner }}
-          cluster: "{{ cluster_subdomain }}" #change
+          cluster: {{ cluster_subdomain }}
           namespace: ${{ parameters.component_id }}-dev
           image_host: ${{ parameters.image_host }}
           image_name: ${{ parameters.component_id }}
