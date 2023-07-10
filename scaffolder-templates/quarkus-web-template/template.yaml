@@ -113,15 +113,15 @@ spec:
         copyWithoutRender:
           - .github/workflows/*
         values:
-          component_id: ${{ parameters.component_id }}
-          description: ${{ parameters.description }}
-          namespace: ${{ parameters.component_id }}-dev
-          group_id: ${{ parameters.group_id }}
-          artifact_id: ${{ parameters.artifact_id }}
-          java_package_name: ${{ parameters.java_package_name }}
-          owner: ${{ parameters.owner }}
+          component_id: {{ '{{ parameters.component_id }}' }}
+          description: {{ '{{ parameters.description }}' }}
+          namespace: {{ '{{ parameters.component_id }}' }}-dev
+          group_id: {{ '{{ parameters.group_id }}' }}
+          artifact_id: {{ '{{ parameters.artifact_id }}' }}
+          java_package_name: {{ '{{ parameters.java_package_name }}' }}
+          owner: {{ '{{ parameters.owner }}' }}
           cluster: {{ cluster_subdomain }}
-          destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
+          destination: {{ '{{ parameters.repo.owner }}' }}/{{ '{{ parameters.component_id }}' }}
           port: 8080
 
 
@@ -129,13 +129,13 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: '${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}'
+        repoUrl: {{ '{{ parameters.repo.host }}' }}?owner={{ '{{ parameters.repo.owner }}' }}&repo={{ '{{parameters.component_id}}' }}
 
     - id: register
       name: Register
       action: catalog:register
       input:
-        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        repoContentsUrl: {{ '{{ steps.publish.output.repoContentsUrl }}' }}
         catalogInfoPath: "/catalog-info.yaml"
 
     - id: template-gitops-deployment
@@ -145,17 +145,17 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          component_id: ${{ parameters.component_id }}
-          description: ${{ parameters.description }}
-          destination: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}-gitops.git
-          source_repository: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}.git
-          repository_name: ${{parameters.component_id}}
-          git_owner: ${{ parameters.component_id.owner }}
+          component_id: {{ '{{ parameters.component_id }}' }}
+          description: {{ '{{ parameters.description }}' }}
+          destination: https://{{ '{{ parameters.repo.host }}' }}/{{ '{{ parameters.repo.owner }}' }}/{{ '{{parameters.component_id}}' }}-gitops.git
+          source_repository: https://{{ '{{ parameters.repo.host }}' }}/{{ '{{ parameters.repo.owner }}' }}/{{ '{{parameters.component_id}}' }}.git
+          repository_name: {{ '{{parameters.component_id}}' }}
+          git_owner: {{ '{{ parameters.component_id.owner }}' }}
           cluster: {{ cluster_subdomain }}
-          namespace: ${{ parameters.component_id }}-dev
-          image_host: ${{ parameters.image_host }}
-          image_name: ${{ parameters.component_id }}
-          image_tag: ${{ parameters.image_tag }}
+          namespace: {{ '{{ parameters.component_id }}' }}-dev
+          image_host: {{ '{{ parameters.image_host }}' }}
+          image_name: {{ '{{ parameters.component_id }}' }}
+          image_tag: {{ '{{ parameters.image_tag }}' }}
           port: 8080
         targetPath: ./tenant-gitops
 
@@ -163,9 +163,9 @@ spec:
       name: Publishing to Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: '${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}-gitops'
-        title: gitops resources for ${{ parameters.component_id }}
-        description: gitops resources for ${{ parameters.component_id }}
+        repoUrl: {{ '{{ parameters.repo.host }}' }}?owner={{ '{{ parameters.repo.owner }}' }}&repo={{ '{{parameters.component_id}}' }}-gitops
+        title: gitops resources for {{ '{{ parameters.component_id }}' }}
+        description: gitops resources for {{ '{{ parameters.component_id }}' }}
         sourcePath: ./tenant-gitops
         repoVisibility: public
 
@@ -173,16 +173,16 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: ${{ parameters.component_id }}-bootstrap
+        appName: {{ '{{ parameters.component_id }}' }}-bootstrap
         argoInstance: main
         namespace: openshift-gitops
-        repoUrl: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{ parameters.component_id }}-gitops.git
+        repoUrl: https://{{ '{{ parameters.repo.host }}' }}/{{ '{{ parameters.repo.owner }}' }}/{{ '{{ parameters.component_id }}' }}-gitops.git
         path: 'argocd/'
 
   output:
     links:
       - title: Source Code Repository
-        url: ${{ steps.publish.output.remoteUrl }}
+        url: {{ '{{ steps.publish.output.remoteUrl }}' }}
       - title: Open Component in catalog
         icon: catalog
-        entityRef: ${{ steps.register.output.entityRef }}
+        entityRef: {{ '{{ steps.register.output.entityRef }}' }}
