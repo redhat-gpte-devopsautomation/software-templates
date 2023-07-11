@@ -44,14 +44,12 @@ spec:
           title: Description
           type: string
           description: Help others understand what this website is for.
+          default: A cool quarkus app
         owner:
           title: Owner
           type: string
           description: IdP owner of the component
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
+          default: {{ gitlab_group }}
     - title: Provide Image Registry Information
       required:
         - image_registry
@@ -87,6 +85,11 @@ spec:
                   title: Organization
                   type: string
                   description: Name of the Quay Organization
+                image_tag:
+                  title: Image Tag
+                  default: latest
+                  type: string
+                  description: Build Image tag
     - title: Application repository Information
       required:
         - repo
@@ -151,7 +154,7 @@ spec:
           destination: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{parameters.component_id}}' }}-gitops.git
           source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{parameters.component_id}}' }}.git
           repository_name: {{ '${{parameters.component_id}}' }}
-          git_owner: {{ '${{ parameters.component_id.owner }}' }}
+          git_owner: {{ '${{ parameters.repo.owner }}' }}
           cluster: {{ cluster_subdomain }}
           namespace: {{ '${{ parameters.component_id }}' }}-dev
           image_host: {{ '${{ parameters.image_host }}' }}
