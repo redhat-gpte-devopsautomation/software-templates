@@ -3,9 +3,10 @@ kind: GitWebhook
 metadata:
   name: {{ .Values.app.name }}
 spec:
-  gitHub:
+  gitLab:
+    gitLabAPIServerURL: https://{{ .Values.git.host }}/api/v4
     gitServerCredentials:
-      name: {{ .Values.app.name }}-github-pat
+      name: {{ .Values.app.name }}-gitlab-pat
   repositoryOwner: {{ .Values.git.org }}
   ownerType:  "organization"
   repositoryName: {{ .Values.git.name }}
@@ -17,4 +18,4 @@ spec:
     - push
     - create
   content: json
-  active: true  
+  active: true

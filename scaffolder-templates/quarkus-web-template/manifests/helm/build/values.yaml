@@ -8,6 +8,8 @@ git:
   repo: ${{ values.source_repository }}
   org: ${{ values.git_owner }}
   name: ${{ values.repository_name }}
+  host: ${{ values.repository_host }}
+  token: ${{ values.git_token }}
 
 image:
   host: ${{ values.image_host }}
