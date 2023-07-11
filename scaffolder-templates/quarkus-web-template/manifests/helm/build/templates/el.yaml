@@ -11,7 +11,7 @@ spec:
         - ref: commit-binding
       interceptors:
         - cel:
-            filter: "has(body.commits) && body.created == false"
+            filter: has(body.commits) && body.object_kind == 'push'
       template:
         ref: {{ .Values.app.name }}-run-build
     - name: tag-trig
@@ -19,6 +19,6 @@ spec:
         - ref: tag-binding
       interceptors:
         - cel:
-            filter: "body.ref_type == 'tag'"
+            filter: body.object_kind == 'tag_push'
       template:
         ref: {{ .Values.app.name }}-run-promote
