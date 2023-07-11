@@ -154,7 +154,7 @@ spec:
           destination: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{parameters.component_id}}' }}-gitops.git
           source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{parameters.component_id}}' }}.git
           repository_name: {{ '${{parameters.component_id}}' }}
-          git_owner: {{ '${{ parameters.repo.owner }}' }}
+          git_owner: {{ '${{ parameters.owner }}' }}
           cluster: {{ cluster_subdomain }}
           namespace: {{ '${{ parameters.component_id }}' }}-dev
           image_host: {{ '${{ parameters.image_host }}' }}
