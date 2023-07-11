@@ -130,6 +130,7 @@ spec:
       action: publish:gitlab
       input:
         repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ parameters.repo.owner }}' }}&repo={{ '${{parameters.component_id}}' }}"
+        repoVisibility: public
 
     - id: register
       name: Register
