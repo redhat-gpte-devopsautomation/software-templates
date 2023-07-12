@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-webhook
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  backoffLimit: 100
+  template:
+    spec:
+      containers:
+      - name: create-webhook
+        command:
+          - /bin/bash
+          - '-c'
+          - |
+            set -x
+            ansible-playbook -i localhost /scripts/playbook.yaml
+        image: quay.io/agnosticd/ee-multicloud:latest
+        volumeMounts:
+          - mountPath: /scripts
+            name: create-webhook-script-vol
+      restartPolicy: Never
+      serviceAccount: gitlab
+      volumes:
+      - name: create-webhook-script-vol
+        configMap:
+          name: create-webhook-script
