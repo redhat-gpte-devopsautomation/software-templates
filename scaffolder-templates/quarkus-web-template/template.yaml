@@ -129,9 +129,9 @@ spec:
           java_package_name: {{ '${{ parameters.java_package_name }}' }}
           owner: {{ '${{ parameters.owner }}' }}
           cluster: {{ cluster_subdomain }}
+          host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ parameters.component_id }}' }}
           port: 8080
-
 
     - id: publish
       name: Publish
