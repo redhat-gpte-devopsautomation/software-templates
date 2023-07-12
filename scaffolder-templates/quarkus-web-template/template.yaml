@@ -131,6 +131,7 @@ spec:
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ parameters.component_id }}' }}
+          credentials: {{ gitlab_user }}:{{ gitlab_password }}
           port: 8080
 
     - id: publish
