@@ -21,7 +21,6 @@ spec:
           - mountPath: /scripts
             name: create-webhook-script-vol
       restartPolicy: Never
-      serviceAccount: gitlab
       volumes:
       - name: create-webhook-script-vol
         configMap:
