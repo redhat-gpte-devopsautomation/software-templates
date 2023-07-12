@@ -72,6 +72,11 @@ spec:
                   type: string
                   description: Host for storing image
                   default: image-registry.openshift-image-registry.svc:5000
+                image_tag:
+                  title: Image Tag
+                  default: latest
+                  type: string
+                  description: Build Image tag
             - properties:
                 image_registry:
                   enum:
