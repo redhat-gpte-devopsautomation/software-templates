@@ -20,7 +20,7 @@ spec:
             name: cel
       name: commit-trig
       template:
-        ref: my-quarkus-app-run-build
+        ref: {{ .Values.app.name }}-run-build
     - bindings:
         - kind: TriggerBinding
           ref: tag-binding
@@ -35,4 +35,4 @@ spec:
             name: cel
       name: tag-trig
       template:
-        ref: my-quarkus-app-run-promote
+        ref: {{ .Values.app.name }}-run-promote
