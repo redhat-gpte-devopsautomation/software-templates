@@ -101,11 +101,21 @@ spec:
             host:
               title: Repo Host
               type: string
+              description: Your SCM host
               default: {{ gitlab_host }}
+              enum:
+                - {{ gitlab_host }}
+              enumNames:
+                - '{{ gitlab_host }}'
             owner:
               title: Repo Owner
               type: string
+              description: Your SCM host organization/group
               default: {{ gitlab_group }}
+              enum:
+                - {{ gitlab_group }}
+              enumNames:
+                - '{{ gitlab_group }}'
 
   steps:
     - id: template
