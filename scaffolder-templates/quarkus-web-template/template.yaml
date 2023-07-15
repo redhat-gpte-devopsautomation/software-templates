@@ -105,8 +105,6 @@ spec:
               default: {{ gitlab_host }}
               enum:
                 - {{ gitlab_host }}
-              enumNames:
-                - '{{ gitlab_host }}'
             owner:
               title: Repo Owner
               type: string
@@ -114,8 +112,6 @@ spec:
               default: {{ gitlab_group }}
               enum:
                 - {{ gitlab_group }}
-              enumNames:
-                - '{{ gitlab_group }}'
 
   steps:
     - id: template
