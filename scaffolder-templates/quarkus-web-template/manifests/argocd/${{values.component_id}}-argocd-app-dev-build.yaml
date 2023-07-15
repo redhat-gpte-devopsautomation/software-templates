@@ -6,6 +6,8 @@ metadata:
   namespace: janus-argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: janus
   source:
