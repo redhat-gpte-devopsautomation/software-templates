@@ -16,7 +16,6 @@ spec:
     - title: Provide Information for Application
       required:
         - component_id
-        - owner
         - java_package_name
       properties:
         component_id:
