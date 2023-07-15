@@ -16,7 +16,6 @@ spec:
     - title: Provide Information for Application
       required:
         - component_id
-        - owner
         - java_package_name
       properties:
         component_id:
@@ -45,11 +44,6 @@ spec:
           type: string
           description: Help others understand what this website is for.
           default: A cool quarkus app
-        owner:
-          title: Owner
-          type: string
-          description: IdP owner of the component
-          default: {{ gitlab_user }}
     - title: Provide Image Registry Information
       required:
         - image_registry
@@ -106,11 +100,17 @@ spec:
             host:
               title: Repo Host
               type: string
+              description: Your SCM host
               default: {{ gitlab_host }}
+              enum:
+                - {{ gitlab_host }}
             owner:
               title: Repo Owner
               type: string
+              description: Your SCM host organization/group
               default: {{ gitlab_group }}
+              enum:
+                - {{ gitlab_group }}
 
   steps:
     - id: template
@@ -127,7 +127,7 @@ spec:
           group_id: {{ '${{ parameters.group_id }}' }}
           artifact_id: {{ '${{ parameters.artifact_id }}' }}
           java_package_name: {{ '${{ parameters.java_package_name }}' }}
-          owner: {{ '${{ parameters.owner }}' }}
+          owner: {{ gitlab_user }}
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ parameters.component_id }}' }}
