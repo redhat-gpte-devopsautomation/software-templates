@@ -7,10 +7,10 @@ data:
     - hosts: localhost
       vars:
         git_host: {{ .Values.git.host }}
-        git_org: {{ .Values.git.owner }}
         git_project: {{ .Values.app.name }}
         git_token: {{ .Values.git.token }}
         webhook_url: https://webhook-{{ .Values.app.name }}-el-{{ .Values.app.namespace }}{{ .Values.app.cluster }}
+        webhook_secret: {{ .Values.git.webhookSecret }}
       tasks:
         - name: Get gitlab projects
           ansible.builtin.uri:
@@ -38,6 +38,7 @@ data:
               url: '{{ "{{" }} webhook_url {{ "}}" }}'
               push_events: true
               tag_push_events: true
+              token: '{{ "{{" }} webhook_secret {{ "}}" }}'
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} git_token {{ "}}" }}'
             validate_certs: false
