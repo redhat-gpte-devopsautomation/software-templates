@@ -9,8 +9,8 @@ git:
   org: ${{ values.git_owner }}
   name: ${{ values.repository_name }}
   host: ${{ values.repository_host }}
-  token: ${{ values.git_token }}
-  webhookSecret: openshift
+  token: ''
+  webhookSecret: ''
 
 
 image:
