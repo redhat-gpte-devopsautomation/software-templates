@@ -11,6 +11,13 @@ spec:
           ref: commit-binding
       interceptors:
         - params:
+          - name: secretRef
+            value:
+              secretKey: secret
+              secretName: {{ .Values.app.name }}-webhook-secret
+          ref:
+            name: gitlab
+        - params:
             - name: filter
               value: has(body.commits) && body.object_kind == 'push'
             - name: overlays
@@ -25,6 +32,11 @@ spec:
         - kind: TriggerBinding
           ref: tag-binding
       interceptors:
+        - params:
+          - name: secretRef
+            value:
+              secretKey: secret
+              secretName: {{ .Values.app.name }}-webhook
         - params:
             - name: filter
               value: body.object_kind == 'tag_push'
