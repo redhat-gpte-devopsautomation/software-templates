@@ -37,6 +37,8 @@ spec:
             value:
               secretKey: secret
               secretName: {{ .Values.app.name }}-webhook
+          ref:
+            name: gitlab
         - params:
             - name: filter
               value: body.object_kind == 'tag_push'
