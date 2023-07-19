@@ -131,7 +131,7 @@ spec:
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ parameters.component_id }}' }}
-          quay_destination: ${{ parameters.image_organization }}/${{ parameters.component_id }}
+          quay_destination: {{ '${{ parameters.image_organization}}' }}/{{ '${{ parameters.component_id }}' }}
           port: 8080
 
     - id: publish
