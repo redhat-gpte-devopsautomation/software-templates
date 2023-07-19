@@ -84,6 +84,7 @@ spec:
                   title: Organization
                   type: string
                   description: Name of the Quay Organization
+                  default: quayadmin
                 image_tag:
                   title: Image Tag
                   default: latest
