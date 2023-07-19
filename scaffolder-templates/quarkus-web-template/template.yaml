@@ -167,7 +167,6 @@ spec:
           image_tag: {{ '${{ parameters.image_tag }}' }}
           port: 8080
           repository_host: {{ '${{ parameters.repo.host }}' }}
-          git_token: {{ gitlab_token }}
         targetPath: ./tenant-gitops
 
     - id: publish-gitops

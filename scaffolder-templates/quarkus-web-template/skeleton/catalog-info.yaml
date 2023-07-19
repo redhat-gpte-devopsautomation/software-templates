@@ -11,7 +11,8 @@ metadata:
     backstage.io/kubernetes-namespace: ${{values.component_id}}-dev
     janus-idp.io/tekton-enabled : 'true'
     backstage.io/source-location: url:https://${{values.host}}/${{values.destination}}
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-ref: url:https://${{values.host}}/${{values.destination}}
+    gitlab.com/project-slug: ${{values.destination}}
   tags:
     - java
     - quarkus
