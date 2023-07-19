@@ -17,7 +17,7 @@ spec:
     - name: tag-trig-preprod
       interceptors:
         - cel:
-            filter: "body.object_kind == 'tag_push'
+            filter: "body.object_kind == 'tag_push'"
             overlays:
               - key: tag_version
                 expression: body.ref.split('/')[2]
