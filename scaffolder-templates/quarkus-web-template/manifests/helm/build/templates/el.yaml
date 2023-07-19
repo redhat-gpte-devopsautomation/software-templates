@@ -45,8 +45,6 @@ spec:
         - params:
             - name: filter
               value: body.object_kind == 'release'
-            - name: overlays
-              value: null
           ref:
             kind: ClusterInterceptor
             name: cel
