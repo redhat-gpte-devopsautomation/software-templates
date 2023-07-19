@@ -6,47 +6,30 @@ metadata:
 spec:
   serviceAccountName: pipeline
   triggers:
-    - bindings:
-        - kind: TriggerBinding
-          ref: commit-binding
+    - name: commit-trig
+      bindings:
+        - ref: commit-binding
       interceptors:
-        - params:
-          - name: secretRef
-            value:
-              secretKey: secret
-              secretName: {{ .Values.app.name }}-webhook-secret
-          ref:
-            name: gitlab
-        - params:
-            - name: filter
-              value: has(body.commits) && body.object_kind == 'push'
-            - name: overlays
-              value: null
-          ref:
-            kind: ClusterInterceptor
-            name: cel
-      name: commit-trig
+        - cel:
+            filter: "has(body.commits) && body.object_kind == 'push'"
       template:
         ref: {{ .Values.app.name }}-run-build
-    - bindings:
-        - kind: TriggerBinding
-          ref: tag-binding
+    - name: tag-trig-preprod
       interceptors:
-        - params:
-          - name: secretRef
-            value:
-              secretKey: secret
-              secretName: {{ .Values.app.name }}-webhook
-          ref:
-            name: gitlab
-        - params:
-            - name: filter
-              value: body.object_kind == 'tag_push'
-            - name: overlays
-              value: null
-          ref:
-            kind: ClusterInterceptor
-            name: cel
-      name: tag-trig
+        - cel:
+            filter: "body.object_kind == 'tag_push'
+            overlays:
+              - key: tag_version
+                expression: body.ref.split('/')[2]
+      bindings:
+        - ref: tag-binding-preprod
+      template:
+        ref: {{ .Values.app.name }}-run-promote
+    - name: tag-trig-prod
+      bindings:
+        - ref: tag-binding-prod
+      interceptors:
+        - cel:
+            filter: "body.object_kind == 'release'
       template:
         ref: {{ .Values.app.name }}-run-promote
