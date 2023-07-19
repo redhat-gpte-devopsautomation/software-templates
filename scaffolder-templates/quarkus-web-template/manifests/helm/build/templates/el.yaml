@@ -30,6 +30,6 @@ spec:
         - ref: tag-binding-prod
       interceptors:
         - cel:
-            filter: "body.object_kind == 'release'
+            filter: "body.object_kind == 'release'"
       template:
         ref: {{ .Values.app.name }}-run-promote
