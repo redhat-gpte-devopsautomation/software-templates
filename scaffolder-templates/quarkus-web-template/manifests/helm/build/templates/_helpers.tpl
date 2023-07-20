@@ -16,3 +16,9 @@ Image Url image will be pushed to defaults to internal registry
 {{- printf "%s/%s-preprod/%s" .host .name .name }}
 {{- end }}
 {{- end }}
+
+{{- define "image.prod-url" -}}
+{{- with .Values.image }}
+{{- printf "%s/%s-prod/%s" .host .name .name }}
+{{- end }}
+{{- end }}
