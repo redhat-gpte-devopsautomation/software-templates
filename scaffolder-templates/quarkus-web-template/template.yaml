@@ -79,11 +79,12 @@ spec:
                   title: Image Host
                   type: string
                   description: Host for storing image
-                  default: quay.io
+                  default: {{ quay_host }}
                 image_organization:
                   title: Organization
                   type: string
                   description: Name of the Quay Organization
+                  default: quayadmin
                 image_tag:
                   title: Image Tag
                   default: latest
@@ -131,6 +132,7 @@ spec:
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ parameters.component_id }}' }}
+          quay_destination: {{ '${{ parameters.image_organization}}' }}/{{ '${{ parameters.component_id }}' }}
           port: 8080
 
     - id: publish
@@ -162,11 +164,14 @@ spec:
           git_owner: {{ '${{ parameters.repo.owner }}' }}
           cluster: {{ cluster_subdomain }}
           namespace: {{ '${{ parameters.component_id }}' }}-dev
+          image_registry: {{ '${{ parameters.image_registry }}' }}
           image_host: {{ '${{ parameters.image_host }}' }}
+          image_organization: {{ '${{ parameters.image_organization }}' }}
           image_name: {{ '${{ parameters.component_id }}' }}
           image_tag: {{ '${{ parameters.image_tag }}' }}
           port: 8080
           repository_host: {{ '${{ parameters.repo.host }}' }}
+          deployment_name: quarkus-template
         targetPath: ./tenant-gitops
 
     - id: publish-gitops

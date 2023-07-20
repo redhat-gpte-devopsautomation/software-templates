@@ -43,3 +43,11 @@ spec:
                     storage: 1Gi
           - emptyDir: {}
             name: maven-settings
+{{- if eq .Values.image.registry "Quay" }}
+          - name: docker-config
+            secret:
+              secretName: {{ .Values.app.name }}-registry-creds
+{{- else }}
+          - name: docker-config
+            emptyDir: {}
+{{- end }}
