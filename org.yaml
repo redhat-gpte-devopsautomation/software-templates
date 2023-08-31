@@ -16,11 +16,11 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: user{{ index }}
+  name: user{{ index + 1 }}
 spec:
   profile:
     # Intentional no displayName for testing
-    email: user{{ index }}@opentlc.com
+    email: user{{ index + 1 }}@opentlc.com
     picture: https://avatars.dicebear.com/api/avataaars/breanna-davison@example.com.svg?background=%23fff
   memberOf: [rhdh]
 {% endfor %}
