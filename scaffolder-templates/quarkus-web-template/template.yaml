@@ -110,9 +110,9 @@ spec:
               title: Repo Owner
               type: string
               description: Your SCM host organization/group
-              default: {{ gitlab_group }}
+              default: {{ gitlab_destination_group }}
               enum:
-                - {{ gitlab_group }}
+                - {{ gitlab_destination_group }}
 
   steps:
     - id: template
