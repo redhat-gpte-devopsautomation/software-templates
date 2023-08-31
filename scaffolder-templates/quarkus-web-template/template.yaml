@@ -129,7 +129,7 @@ spec:
           group_id: {{ '${{ parameters.group_id }}' }}
           artifact_id: {{ '${{ parameters.artifact_id }}' }}
           java_package_name: {{ '${{ parameters.java_package_name }}' }}
-          owner: {{ gitlab_user }}
+          owner: {{ '${{ user.entity.metadata.name }}' }}
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ parameters.component_id }}' }}
