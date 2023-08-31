@@ -11,14 +11,16 @@ spec:
     picture: https://avatars.dicebear.com/api/identicon/team-a@example.com.svg?background=%23fff&margin=25
   parent: backstage
   children: []
+{% for index in range(1, ocp4_workload_redhat_developer_hub_users_count + 1) %}
 ---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: {{ gitlab_user }}
+  name: user{{ index }}
 spec:
   profile:
     # Intentional no displayName for testing
-    email: {{ gitlab_user_email }}
+    email: user{{ index }}@opentlc.com
     picture: https://avatars.dicebear.com/api/avataaars/breanna-davison@example.com.svg?background=%23fff
   memberOf: [rhdh]
+{% endfor %}
