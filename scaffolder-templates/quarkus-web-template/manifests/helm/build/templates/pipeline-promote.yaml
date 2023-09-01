@@ -37,7 +37,7 @@ spec:
         - name: destTLSverify
           value: 'false'
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: skopeo-copy
       workspaces:
         - name: images-url
