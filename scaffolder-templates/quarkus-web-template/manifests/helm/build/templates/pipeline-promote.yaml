@@ -24,7 +24,6 @@ spec:
       default: latest
     - name: namespace
       type: string
-{{- if eq .Values.image.registry "Quay" }}
     - description: The hostname of the git instance
       name: git-host
       type: string
@@ -40,7 +39,6 @@ spec:
     - description: ArgoCD host
       name: argocd-host
       type: string
-{{- end }}
   tasks:
 {{- if eq .Values.image.registry "Quay" }}
     - name: quay-tag-promote
