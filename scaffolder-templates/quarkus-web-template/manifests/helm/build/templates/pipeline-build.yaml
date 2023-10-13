@@ -20,6 +20,9 @@ spec:
       description: reference of the image that will get created
       default: {{ include "image.dev-url" . }}
       type: string
+    - description: Component id
+      name: component-id
+      type: string
   tasks:
     - name: git-clone
       params:
@@ -58,6 +61,15 @@ spec:
           workspace: source-folder
         - name: dockerconfig
           workspace: docker-config
+    - name: resync
+      params:
+        - name: COMPONENT_ID
+          value: $(params.component-id)
+      runAfter:
+        - build-and-push
+      taskRef:
+        kind: Task
+        name: resync
   workspaces:
     - name: source-folder
     - name: maven-settings
