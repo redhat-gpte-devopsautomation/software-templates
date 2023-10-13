@@ -37,6 +37,16 @@ spec:
             value: $(tt.params.destination-tag)
           - name: namespace
             value: $(tt.params.namespace)
+          - name: git-host
+            value: gitlab-gitlab{{ .Values.app.cluster }}
+          - name: git-owner
+            value: {{ .Values.git.org }}
+          - name: component-id
+            value: {{ .Values.app.name }}
+          - name: common-password-secret
+            value: common-password-secret
+          - name: argocd-host
+            value: argocd-server-janus-argocd{{ .Values.app.cluster }}
         pipelineRef:
           name: {{ .Values.app.name }}-promote
         serviceAccountName: image-pusher
