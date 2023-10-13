@@ -24,6 +24,23 @@ spec:
       default: latest
     - name: namespace
       type: string
+{{- if eq .Values.image.registry "Quay" }}
+    - description: The hostname of the git instance
+      name: git-host
+      type: string
+    - description: The owner of the repo
+      name: git-owner
+      type: string
+    - description: The name of the component
+      name: component-id
+      type: string
+    - description: Common password used in demo
+      name: common-password-secret
+      type: string
+    - description: ArgoCD host
+      name: argocd-host
+      type: string
+{{- end }}
   tasks:
 {{- if eq .Values.image.registry "Quay" }}
     - name: quay-tag-promote
@@ -45,9 +62,19 @@ spec:
     - name: patch-deployment
       params:
         - name: namespace
-          value: '$(params.namespace)'
-        - name: IMAGE
-          value: '{{ .Values.image.host }}/{{ .Values.image.organization }}/{{ .Values.image.name }}:$(params.destination-image-tag)'
+          value: $(params.namespace)
+        - name: git-host
+          value:  $(params.git-host)
+        - name: git-owner
+          value:  $(params.git-owner)
+        - name: component-id
+          value:  $(params.component-id)
+        - name: common-password-secret
+          value:  $(params.common-password-secret)
+        - name: image-tag
+          value: $(params.destination-image-tag)
+        - name: argocd-host
+          value:  $(params.argocd-host)
       taskRef:
         kind: Task
         name: update-deployment
