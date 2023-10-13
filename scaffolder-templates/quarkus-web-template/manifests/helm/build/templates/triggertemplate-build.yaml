@@ -28,6 +28,8 @@ spec:
             value: $(tt.params.git-revision)
           - name: output-image
             value: $(tt.params.output-image)
+          - name: component-id
+            value: {{ .Values.app.name }}
         pipelineRef:
           name: {{ .Values.app.name }}-build
         serviceAccountName: pipeline
