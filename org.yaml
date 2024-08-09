@@ -1,6 +1,19 @@
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
+  name: rad-workshop-authors
+  description: RAD Workshop Authors
+spec:
+  type: team
+  profile:
+    # Intentional no displayName for testing
+    email: ad-workshop-authors@demo.redhat.com
+    picture: https://avatars.dicebear.com/api/identicon/team-a@example.com.svg?background=%23fff&margin=25
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
   name: rhdh
   description: Red Hat Developer Hub
 spec:
