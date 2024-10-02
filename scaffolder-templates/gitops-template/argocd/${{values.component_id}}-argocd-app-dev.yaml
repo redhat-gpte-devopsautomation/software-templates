@@ -5,7 +5,7 @@ metadata:
   name: ${{ values.component_id }}-dev
   namespace: janus-argocd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io  
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -16,13 +16,12 @@ spec:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-dev
   syncPolicy:
-    automated: 
+    automated:
       prune: true
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-    - RespectIgnoreDifferences=true
-    - ApplyOutOfSyncOnly=true    
+    - ApplyOutOfSyncOnly=true
     retry:
       backoff:
         duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
